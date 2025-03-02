@@ -1,0 +1,2 @@
+# GPTito
+A small Transformer

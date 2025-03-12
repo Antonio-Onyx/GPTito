@@ -102,7 +102,7 @@ class EncoderLayer(nn.Module):
         return x
     
 # Encoder transformer body
-class TranformerEncoder(nn.Module):
+class TransformerEncoder(nn.Module):
     def __init__(self, vocab_size, d_model, num_layers, num_heads, d_ff, dropout, max_seq_length):
         super().__init__()
         self.embedding = InputEmbeddings(vocab_size, d_model)

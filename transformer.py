@@ -36,3 +36,14 @@ class TransformerDecoder(nn.Module):
         for layer in self.layers:
             x = layer(x, encoder_output, tgt_mask)
         return x
+    
+class Transformer(nn.Module):
+    def __init__(self, vocab_size, d_model, num_layers, num_heads, d_ff, dropout, max_seq_length):
+        super().__init__()
+        self.transformer_encoding = TransformerEncoder(vocab_size, d_model, num_layers, num_heads, d_ff, dropout, max_seq_length)
+        self.transformer_decoder = TransformerEncoder(vocab_size, d_model, num_layers, num_heads, d_ff, dropout, max_seq_length)
+        self.output_layer = nn.Linear(d_model, vocab_size)
+        self.softmax = torch.softmax()
+
+    def forward(self, source, target):
+        pass

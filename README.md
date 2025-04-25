@@ -11,3 +11,11 @@ La representación viene siendo una ponderación que se calcula al momento de qu
 Gptito se compone de
 
 ### InputEmbedding
+
+### PostionalEncoding
+
+### MultiHeadAttention
+
+### Encoder
+
+### Decoder

@@ -8,6 +8,6 @@ La atención es un mecanismo que relaciona diferentes posiciones en una secuenci
 La representación viene siendo una ponderación que se calcula al momento de que la atención en las relaciones importantes que hay en una secuencia.
 
 ## Arquitectura
-Gptito de compone de
+Gptito se compone de
 
 ### InputEmbedding

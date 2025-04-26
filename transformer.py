@@ -46,4 +46,11 @@ class Transformer(nn.Module):
         self.softmax = torch.softmax()
 
     def forward(self, source, target):
-        pass
+        source_mask = torch.ones()
+        output_encoder = self.transformer_encoding(source, source_mask())
+
+    def source_mask(self, batch_size, max_seql_length):
+        return torch.ones(batch_size, max_seql_length, max_seql_length)
+    
+    def target_mask(self, target):
+        return torch.tril(torch.ones(target.shape[1]), target.shape[1])

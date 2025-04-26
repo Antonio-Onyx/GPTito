@@ -56,22 +56,27 @@ class MultiHeadAttention(nn.Module):
         #    print("Shape de mask:", mask.shape)
             scores = scores.masked_fill(mask == 0, float('-inf'))
         attention_weights = F.softmax(scores, dim=-1)
-        return torch.matmul(attention_weights, value)
+        output = torch.matmul(attention_weights, value)
+        return output, attention_weights
     
     def combine_heads(self, x, batch_size):
         x = x.permute(0,2,1,3).contiguous()
         return x.view(batch_size, -1, self.d_model)
     
-    def forward(self, query, key, value, mask=None):
+    def forward(self, query, key, value, mask=None, return_attention=False):
         batch_size = query.size(0)
         query = self.split_heads(self.query_linear(query), batch_size)
         key = self.split_heads(self.key_linear(key), batch_size)
         value = self.split_heads(self.value_linear(value), batch_size)
 
-        attention_weigths = self.compute_attenttion(query, key, value, mask)
+        attention_output, attention_weigths = self.compute_attenttion(query, key, value, mask)
 
-        output = self.combine_heads(attention_weigths, batch_size)
-        return self.output_linear(output)
+        output = self.output_linear(self.combine_heads(attention_output, batch_size))
+
+        if return_attention:
+            return attention_output, attention_weigths
+
+        return output
     
 # Feed-forward sublayer in encoder layers
 class FeedForwardSublayer(nn.Module):
